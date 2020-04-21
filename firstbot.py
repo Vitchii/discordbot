@@ -11,7 +11,7 @@ async def on_ready():
 
 @client.command()
 async def test(c):
-    await c.send(f'Test successful');
+    await c.send(f'Test successful')
 
 @client.event
 async def on_message(m):
@@ -21,6 +21,6 @@ async def on_message(m):
         handleMessage(m)
 
 def handleMessage(m):
-    print(m);        
+    print(m)        
 
 client.run(os.environ['DISCORD_TOKEN'])
