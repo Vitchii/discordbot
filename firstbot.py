@@ -1,21 +1,16 @@
 import discord
+from discord.ext import commands
 import os
 
-client = discord.Client()
+client = commands.Bot(command_prefix='.')
 
 
 @client.event
 async def on_ready():
-    print('Bot is ready')
+    print('Bot is ready!')
 
-@client.event
-async def on_message(m):
-    if m.author.bot:
-        return
-    else:
-       await handleMessage(m)
-
-def handleMessage(m):
-    m.channel.send(m.author)     
+@client.command
+async def test(c):
+    await c.author.send('Test')
 
 client.run(os.environ['DISCORD_TOKEN'])
