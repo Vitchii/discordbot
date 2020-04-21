@@ -10,7 +10,7 @@ async def on_ready():
     print('Bot is ready')
 
 @client.command()
-async def random(c):
-    c.send()
+async def ping(c):
+    await c.send(f'TEST');
 
 client.run(os.environ['DISCORD_TOKEN'])
