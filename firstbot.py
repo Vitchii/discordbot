@@ -9,7 +9,7 @@ client = commands.Bot(command_prefix='.')
 async def on_ready():
     print('Bot is ready!')
 
-@client.command
+@client.command()
 async def test(c):
     await c.author.send('Test')
 
