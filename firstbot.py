@@ -17,5 +17,6 @@ async def on_message(m):
 
 def handleMessage(m):
     print(m)        
+    await m.channel.send("Working")
 
 client.run(os.environ['DISCORD_TOKEN'])
