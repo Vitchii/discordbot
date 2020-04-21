@@ -15,7 +15,7 @@ async def test(c):
 
 @client.event
 async def on_message(m):
-    if m.author.Bot:
+    if m.author.bot:
         return
     else:
         handleMessage(m)
