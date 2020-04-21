@@ -10,7 +10,8 @@ async def on_ready():
     print('Bot is ready!')
 
 @client.command()
-async def test(c):
-    await c.author.send('Test')
+async def test(c, arg):
+    #await c.author.send('Test')
+    await c.send(f'{c.author.nick} schreibt {arg}')
 
 client.run(os.environ['DISCORD_TOKEN'])
