@@ -13,10 +13,9 @@ async def on_message(m):
     if m.author.bot:
         return
     else:
-        await m.channel.send("Working")
         handleMessage(m)
 
 def handleMessage(m):
-    print(m)        
+    m.channel.send(m.author)     
 
 client.run(os.environ['DISCORD_TOKEN'])
