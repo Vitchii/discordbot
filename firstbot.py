@@ -12,6 +12,6 @@ async def on_ready():
 @client.command()
 async def test(c, arg):
     #await c.author.send('Test')
-    await c.send(f'{c.author.nick} schreibt {arg}')
+    await c.send(f'@{c.author} schreibt {arg}')
 
 client.run(os.environ['DISCORD_TOKEN'])
