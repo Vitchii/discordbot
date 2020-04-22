@@ -1,0 +1,9 @@
+automaten
+afs
+automatentheorie
+automatenformalesprachen
+formalesprachen
+fs
+automatenundformalesprachen
+automatenuformalesprachen
+automatenundformale
