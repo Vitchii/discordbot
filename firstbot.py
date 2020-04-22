@@ -22,7 +22,7 @@ faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjekt
 
 @client.event
 async def on_message(m):
-    if m.author.bot or m.channel.name != "info-bot":
+    if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal"):
         return
 
     r = True
@@ -67,6 +67,13 @@ async def handleMessage(m):
         if msg == "fach":
             await m.channel.send("Sehr witzig :D:D:D:D")
             beantwortet = True
+
+        if msg == "hurensohn":
+            await m.channel.send("selber :|")
+            beantwortet = True
+
+    if not beantwortet:
+        await m.user.send
                 
 
 
