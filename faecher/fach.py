@@ -12,7 +12,7 @@ class Fach:
 
     def getSynonyms(self):
         self.syn = []
-        file = open("faecher/" +  self.__class__.__name__.lower() + ".txt", "r")
+        file = open("faecher/" +  self.__class__.__name__ + ".txt", "r")
         self.syn = []
         for line in file:
             self.syn.append(line.strip().lower())
