@@ -56,7 +56,7 @@ async def handleMessage(m):
                                 + "\n!*fach*            Zeigt die Links zu den Unterlagen für *fach* an"
                                 + "\n!faecher      Zeigt die eine Liste der eingetragenen Fächer an"
                                 + "\n!git               Sendet dir den GitHub-Link"
-                                + "\n\n Wer das liest ist doof :P")
+                                + "\n\nWer das liest ist doof :P")
             beantwortet = True
         
         if msg == "faecher" or msg == "f":
@@ -76,6 +76,11 @@ async def handleMessage(m):
             d = 'Github'
             embed = discord.Embed(title=t, url=u, description=d)
             await m.channel.send(embed = embed)
+            beantwortet = True
+
+        if msg == "hurensohn":
+            await m.channel.send("selber hurensohn")
+            beantwortet = True
                 
 
 
