@@ -1,8 +1,10 @@
 import discord
+import sys
 from faecher.fach import Fach
 
 class Automatenundformalesprachen(Fach):
     def __init__(self):
+        self.filename = "automatenundformalesprachen"
         pass
 
     def createLinks(self):
@@ -25,7 +27,7 @@ class Automatenundformalesprachen(Fach):
         self.links.append(embed)
 
     def getText(self):
-        return "Die Unterlagen zu __**AFS**__ findest du hier:"
-    
+       return "Die Unterlagen zu __**AFS**__ findest du hier:"
+
     def getName(self):
         return "Automaten und Formale Sprachen"

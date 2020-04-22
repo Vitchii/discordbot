@@ -3,6 +3,7 @@ from faecher.fach import Fach
 
 class XmlTechnologien(Fach):
     def __init__(self):
+        self.filename = "xmltechnologien"
         pass
 
     def createLinks(self):

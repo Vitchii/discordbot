@@ -3,6 +3,7 @@ from faecher.fach import Fach
 
 class GrossesProjekt(Fach):
     def __init__(self):
+        self.filename = "grossesProjekt"
         pass
 
     def createLinks(self):
