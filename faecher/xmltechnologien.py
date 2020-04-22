@@ -23,4 +23,4 @@ class XmlTechnologien(Fach):
         return "Die Unterlagen zu __**XML-Technolgien**__ findest du hier:"
 
     def getName(self):
-        return "XML-Technologien"
+        return "XML-Technologien (xml)"
