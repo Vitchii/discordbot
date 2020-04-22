@@ -63,7 +63,7 @@ async def handleMessage(m):
             await m.channel.send(text)
             beantwortet = True
 
-        if msg = "fach":
+        if msg == "fach":
             await m.channel.send("Sehr witzig :D:D:D:D")
             beantwortet = True
                 
