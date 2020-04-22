@@ -76,6 +76,10 @@ async def handleMessage(m):
         if msg == "hurensohn":
             await m.channel.send("Du bist selbst ein Hurensohn, "+ f"{m.author.mention}")
             beantwortet = True
+            
+        if msg == "Hoffmann":
+            await m.channel.send("https://www.youtube.com/watch?v=ffp_M7RCLTI")
+            beantwortet = True
 
         if msg == "doofmann":
             await m.channel.send(":O")
