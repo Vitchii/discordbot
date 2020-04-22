@@ -76,6 +76,10 @@ async def handleMessage(m):
         if msg == "hurensohn":
             await m.channel.send("selber hurensohn")
             beantwortet = True
+
+        if msg == "doofmann":
+            await m.channel.send(":O")
+            beantwortet = True
                 
 
 
