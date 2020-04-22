@@ -53,6 +53,7 @@ async def handleMessage(m):
                                 + "\n!help            Zeigt dir eine Übersicht der Commands an"
                                 + "\n!*fach*            Zeigt die Links zu den Unterlagen für *fach* an"
                                 + "\n!faecher      Zeigt die eine Liste der eingetragenen Fächer an"
+                                + "\n!git               Sendet dir den GitHub-Link"
                                 + "\n\n Wer das liest ist doof :P")
             beantwortet = True
         
@@ -66,11 +67,14 @@ async def handleMessage(m):
         if msg == "fach":
             await m.channel.send("Sehr witzig :D:D:D:D")
             beantwortet = True
+
+        if msg == "github" or msg == "git":
+            t = 'discordbot'
+            u = 'https://github.com/nilslambertz/discordbot'
+            d = 'Github'
+            embed = discord.Embed(title=t, url=u, description=d)
+            await m.channel.send(embed = embed)
                 
-
-
-
-
 
 
 
