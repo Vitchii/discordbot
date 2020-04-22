@@ -62,6 +62,10 @@ async def handleMessage(m):
                 text = text + "\n" + str(i+1) + ". " + faecherarray[i].getName()
             await m.channel.send(text)
             beantwortet = True
+
+        if msg = "fach":
+            await m.channel.send("Sehr witzig :D:D:D:D")
+            beantwortet = True
                 
 
 
