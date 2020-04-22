@@ -30,4 +30,4 @@ class Automatenundformalesprachen(Fach):
        return "Die Unterlagen zu __**AFS**__ findest du hier:"
 
     def getName(self):
-        return "Automaten und Formale Sprachen"
+        return "Automaten und Formale Sprachen (afs)"

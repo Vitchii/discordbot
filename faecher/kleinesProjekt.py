@@ -17,4 +17,4 @@ class KleinesProjekt(Fach):
         return "Die Unterlagen zum __**kleinen Studienprojekt**__ findest du hier:"
 
     def getName(self):
-        return "Kleines Studienprojekt"
+        return "Kleines Studienprojekt (kl)"
