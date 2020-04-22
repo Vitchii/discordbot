@@ -3,6 +3,7 @@ from faecher.fach import Fach
 
 class Rechnernetze(Fach):
     def __init__(self):
+        self.filename = "rechnernetze"
         pass
 
     def createLinks(self):

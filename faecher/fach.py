@@ -3,6 +3,7 @@ import discord
 class Fach:
     syn = []
     links = []
+    filename = ""
 
     def __init__(self):
         return
@@ -12,7 +13,8 @@ class Fach:
 
     def getSynonyms(self):
         self.syn = []
-        file = open("faecher/" +  self.__class__.__name__ + ".txt", "r")
+        file = open("faecher/" +  self.filename + ".txt", "r")
+        
         self.syn = []
         for line in file:
             self.syn.append(line.strip().lower())

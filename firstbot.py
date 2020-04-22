@@ -78,5 +78,5 @@ async def on_ready():
 async def test(c):
     await c.send(f'{c.author.mention}: Test erfolgreich :-)')
 
-client.run(os.environ['DISCORD_TOKEN'])
-#client.run('NzAyMTU3MjM1MTQ0NDkxMDc4.Xp9eCA.PauAYzJoE97bGP_8_EoCYZd51k8')
+#client.run(os.environ['DISCORD_TOKEN'])
+client.run('NzAyMTU3MjM1MTQ0NDkxMDc4.Xp9eCA.PauAYzJoE97bGP_8_EoCYZd51k8')
