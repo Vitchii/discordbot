@@ -21,7 +21,7 @@ faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjekt
 
 @client.event
 async def on_message(m):
-    if m.author.bot:
+    if m.author.bot or m.channel.name != 'info-bot':
         return
 
     r = True
