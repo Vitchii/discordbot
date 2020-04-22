@@ -74,7 +74,7 @@ async def handleMessage(m):
             beantwortet = True
 
         if msg == "hurensohn":
-            await m.channel.send("selber hurensohn")
+            await m.channel.send("Du bist selbst ein Hurensohn, f'{m.author.mention}")
             beantwortet = True
 
         if msg == "doofmann":
