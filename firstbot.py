@@ -25,14 +25,9 @@ faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjekt
 async def on_message(m):
     if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal"):
         return
-
-    r = True
  
     if m.content.startswith('!'):
         await handleMessage(m)
-
-    if r:
-        return
 
     await client.process_commands(m)
     
