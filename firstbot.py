@@ -19,6 +19,8 @@ faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjekt
 
 ### test 
 
+#187
+
 @client.event
 async def on_message(m):
     if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal"):
@@ -86,5 +88,5 @@ async def on_ready():
 async def test(c):
     await c.send(f'{c.author.mention}: Test erfolgreich :-)')
 
-client.run(os.environ['DISCORD_TOKEN'])
-#client.run('NzAyMTU3MjM1MTQ0NDkxMDc4' + '.XqCEaQ.ffCEfyjITgz1FeAlkqI3BckKD2U')
+#client.run(os.environ['DISCORD_TOKEN'])
+client.run('NzAyMTU3MjM1MTQ0NDkxMDc4' + '.XqCEaQ.ffCEfyjITgz1FeAlkqI3BckKD2U')
