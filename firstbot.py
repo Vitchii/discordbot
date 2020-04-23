@@ -11,7 +11,7 @@ from discord.ext import commands
 import os
 
 client = commands.Bot(command_prefix='.')
-cl = discord.Client()
+bot = discord.Client()
 
 automatenObj = Automatenundformalesprachen()
 rechnernetzeObj = Rechnernetze()
@@ -28,16 +28,17 @@ sugg = Suggestions()
 
 @client.event
 async def on_message(m):
+    if isinstance(m.channel, discord.DMChannel) and not m.author.bot:
+        print("received private message from " + m.author.name)
+        await sugg.gotReply(m)
+        return
+
+
     if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal"):
         return
 
-    r = True
- 
     if m.content.startswith('!'):
         await handleMessage(m)
-
-    if r:
-        return
 
     await client.process_commands(m)
     
@@ -97,11 +98,18 @@ async def handleMessage(m):
                 
     if not answered:
         await m.channel.send("Diesen Command kenne ich nicht :(")
-        if sugg.getDenied().__contains__(m.author.id):
+        if sugg.getDenied().__contains__(str(m.author.id)):
+            print(m.author.name + " doesn't want to give suggestions")
             return
         
-        if not sugg.getAccepted().__contains__(m.author.id):
-            p = await sugg.askForPermission(m)
+        if not sugg.getAccepted().__contains__(str(m.author.id)):
+            print("Asking " + m.author.name + " for permission")
+            await sugg.askForPermission(m)
+
+        if sugg.getAccepted().__contains__(str(m.author.id)):
+            print("Asking " + m.author.name + " for suggestions")
+            await sugg.suggestNewCommand(m)
+        
         return
 
 
