@@ -31,3 +31,6 @@ class Automatenundformalesprachen(Fach):
 
     def getName(self):
         return "Automaten und Formale Sprachen (afs)"
+
+    def getShortName(self):
+        return "afs"
