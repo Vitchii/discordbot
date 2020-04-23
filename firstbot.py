@@ -20,6 +20,16 @@ grossesProjektObj = GrossesProjekt()
 xmlTechnologienObj = XmlTechnologien()
 faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjektObj, xmlTechnologienObj]
 
+cmds = []
+cmds.append(["!help", "Zeigt dir eine Übersicht der Commands an"])
+cmds.append(["!*fach*", "Zeigt die Links zu den Unterlagen für *fach* an"])
+cmds.append(["!faecher", "Zeigt die eine Liste der eingetragenen Fächer an"])
+cmds.append(["!suggestions", "Erklärt dir die Suggestion-Funktion"])
+cmds.append(["!accept", "Akzeptiere, dass du private Nachrichten erhältst, um den Bot zu verbessern"])
+cmds.append(["!decline", "Lehne private Nachrichten durch den Bot ab"])
+
+cmds.append(["!git", "Sendet dir den GitHub-Link"])
+
 sugg = Suggestions(faecherarray)
 
 # 187
@@ -37,7 +47,7 @@ async def on_message(m):
     if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal"):
         return
 
-    if m.content.startswith('!'):
+    if m.content.startswith('!') and m.content[1:].isalpha():
         await handleMessage(m)
 
     await client.process_commands(m)
@@ -57,12 +67,12 @@ async def handleMessage(m):
 
     if not answered:
         if msg == "help" or msg == "h" or msg == "hilfe":
-            await m.channel.send("Übersicht der Commands:"
-                                + "\n!help            Zeigt dir eine Übersicht der Commands an"
-                                + "\n!*fach*            Zeigt die Links zu den Unterlagen für *fach* an"
-                                + "\n!faecher      Zeigt die eine Liste der eingetragenen Fächer an"
-                                + "\n!git               Sendet dir den GitHub-Link"
-                                + "\n\nWer das liest ist doof :P")
+            text = "Übersicht der Commands:\n"
+            for c in cmds:
+                text = text + c[0] + "\t\t" + c[1] + "\n"
+
+            text = text + "\n\nWer das liest ist doof :P"
+            await m.channel.send(text)
             answered = True
         
         if msg == "faecher" or msg == "f":
@@ -95,6 +105,22 @@ async def handleMessage(m):
         if msg == "doofmann":
             await m.channel.send(":O")
             answered = True
+
+        if msg == "a" or msg == "accept":
+            await sugg.addUserToAccepted(m)
+            answered = True
+
+        if msg == "d" or msg == "decline":
+            await sugg.addUserToDenied(m)
+            answered = True
+
+        if msg == "suggestion" or msg == "suggestions":
+            await m.channel.send("Du kannst den Bot verbessern, indem du ihm Vorschläge zur Einordnung von Commands gibst! "
+                            + "Du erhältst jedes mal eine private Nachricht, wenn er einen von dir eingegebenen Command nicht kennt und kannst diesem bestimmte "
+                            + "Kategorien zuordnen. Diese Einordnung wird dann überprüft und ggf. freigeschaltet! "
+                            + "Du kannst mit **!accept** zustimmen und mit **!decline** ablehnen")
+            answered = True
+
                 
     if not answered:
         await m.channel.send("Diesen Command kenne ich nicht :(")
