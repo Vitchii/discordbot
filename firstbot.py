@@ -1,20 +1,26 @@
-import discord
 from faecher.automatenundformalesprachen import Automatenundformalesprachen 
 from faecher.rechnernetze import Rechnernetze
 from faecher.kleinesProjekt import KleinesProjekt
 from faecher.grossesProjekt import GrossesProjekt
 from faecher.xmltechnologien import XmlTechnologien
+
+from suggestions.suggestions import Suggestions
+
+import discord
 from discord.ext import commands
 import os
 
 client = commands.Bot(command_prefix='.')
 cl = discord.Client()
+
 automatenObj = Automatenundformalesprachen()
 rechnernetzeObj = Rechnernetze()
 kleinesProjektObj = KleinesProjekt()
 grossesProjektObj = GrossesProjekt()
 xmlTechnologienObj = XmlTechnologien()
 faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjektObj, xmlTechnologienObj]
+
+sugg = Suggestions()
 
 # 187
 
@@ -89,6 +95,14 @@ async def handleMessage(m):
             await m.channel.send(":O")
             answered = True
                 
+    if not answered:
+        await m.channel.send("Diesen Command kenne ich nicht :(")
+        if sugg.getDenied().__contains__(m.author.id):
+            return
+        
+        if not sugg.getAccepted().__contains__(m.author.id):
+            p = await sugg.askForPermission(m)
+        return
 
 
 
@@ -105,4 +119,4 @@ async def test(c):
     await c.send(f'{c.author.mention}: Test erfolgreich :-)')
 
 #client.run(os.environ['DISCORD_TOKEN'])
-client.run('NzAyMTU3MjM1MTQ0NDkxMDc4.Xp9eCA.PauAYzJoE97bGP_8_EoCYZd51k8')
+client.run('NzAyMTU3MjM1MTQ0NDkxMDc4' + '.XqCEaQ.ffCEfyjITgz1FeAlkqI3BckKD2U')
