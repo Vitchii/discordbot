@@ -18,3 +18,6 @@ class GrossesProjekt(Fach):
 
     def getName(self):
         return "Großes Studienprojekt (gr)"
+
+    def getShortName(self):
+        return "grpr"

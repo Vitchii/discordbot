@@ -11,6 +11,9 @@ class Fach:
     def createLinks(self): 
         return
 
+    def getShortName(self):
+        return "n/a"
+
     def getSynonyms(self):
         self.syn = []
         file = open("faecher/" +  self.filename + ".txt", "r")

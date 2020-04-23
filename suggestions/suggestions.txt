@@ -1,0 +1,6 @@
+{nl_fell} - {!testtst} - {Automaten und Formale Sprachen (afs)}
+{nl_fell} - {!XDDD} - {Automaten und Formale Sprachen (afs)}
+{nl_fell} - {!lul} - {-1}
+{nl_fell} - {!XDDD} - {-1}
+{nl_fell} - {!xddd} - {ü132}
+{nl_fell} - {!xDsadaöas} - {-2}

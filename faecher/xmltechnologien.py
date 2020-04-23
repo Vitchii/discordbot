@@ -24,3 +24,6 @@ class XmlTechnologien(Fach):
 
     def getName(self):
         return "XML-Technologien (xml)"
+
+    def getShortName(self):
+        return "xml"
