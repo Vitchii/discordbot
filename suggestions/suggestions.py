@@ -6,18 +6,14 @@ class Suggestions:
     accepted = []
     waiting = []
     newCommand = []
+    categories = []
+    suggestionInProgress = []
     bot = discord.Client()
     client = commands.Bot(command_prefix='.')
 
-    def __init__(self):
-        global denied
-        global accepted
-        global waiting
-        global newCommand
-        denied = []
-        accepted = []
-        waiting = []
-        newCommand = []
+    def __init__(self, faecher):
+        for f in faecher:
+            self.categories.append(f.getName())
         self.updateDenied()
         self.updateAccepted()
         return
@@ -47,6 +43,10 @@ class Suggestions:
                             + "Du erhältst jedes mal eine private Nachricht, wenn ich einen von dir eingegebenen Command nicht kenne und kannst diesen bestimmten "
                             + "Kategorien zuordnen. Diese Einordnung wird dann überprüft und ggf. freigeschaltet! "
                             + "\n\nWillst du mitmachen? Schreibe einfach **YES** oder **NO**")
+
+        if self.waiting and self.waiting[0].__contains__(str(m.author.id)):
+            return
+
         print(self.waiting)
         print("1")
         self.waiting.append([str(m.author.id), m.content])
@@ -57,10 +57,10 @@ class Suggestions:
 
     async def gotReply(self, m):
         msg = m.content.lower()
-        if self.waiting[0].__contains__(str(m.author.id)):
+        if self.waiting and self.waiting[0].__contains__(str(m.author.id)):
             if msg == 'y' or msg == 'yes' or msg == 'ye' or msg == 'j' or msg == 'ja':
                 file = open("suggestions/accepted.txt", "a")
-                file.write(str(m.author.id))
+                file.write(str(m.author.id) + "\n")
                 file.close()
                 print(self.waiting)
                 print("3")
@@ -70,12 +70,13 @@ class Suggestions:
                 print("4")
                 #self.waiting.remove(str(m.author.id))
                 self.updateAccepted()
-                print(m.author.name + " want to help with suggestions in the future")
+                print(m.author.name + " wants to help with suggestions in the future")
                 await self.suggestNewCommand(m, cmd)
+                return
             else:
                 if msg == 'n' or msg == 'no' or msg == 'ne' or msg == 'nein':
                     file = open("suggestions/denied.txt", "a")
-                    file.write(str(m.author.id))
+                    file.write(str(m.author.id) + "\n")
                     file.close()
                     print(self.waiting)
                     print("5")
@@ -90,6 +91,9 @@ class Suggestions:
                     print(m.author.name + " didn't give a valid answer")
                     await m.channel.send("Bitte mit **YES** oder **NO** antworten!")
                     return
+
+        if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
+            await self.suggestionMade(m)
                 
     def getWaitingUsers(self):
         return self.waiting[0]
@@ -98,5 +102,35 @@ class Suggestions:
         if cmd == "":
             cmd = m.content
 
-        await m.author.send("Wozu würdest du **" + cmd + "** zuordnen?")
-        print("test")
+        if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
+            del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
+        
+        self.suggestionInProgress.append([str(m.author.id), cmd])
+
+        msg = "Wozu würdest du **" + cmd + "** zuordnen?"
+        for i in range(len(self.categories)):
+            msg = msg + "\n" + str(i) + ".\t" + self.categories[i]
+
+        msg = msg + "\nGib die Zahl der Kategorie ein, die am besten zu dem Command passt!"
+
+        await m.author.send(msg)
+
+    async def suggestionMade(self, m):
+        if not (self.categories and not self.categories.__contains__(m.content)) and not (m.content.isdigit() and int(m.content) in range(len(self.categories))):
+            await m.author.send("Keine valide Eingabe, bitte gib eine Zahl zwischen 0 und " + str(len(self.categories) - 1) + " ein!")
+            return
+            
+        cat = m.content
+
+
+        if cat.isdigit():
+            cat = self.categories[int(cat)]
+
+
+        index = self.suggestionInProgress[0].index(str(m.author.id))
+        file = open("suggestions/suggestions.txt", "a")
+        file.write("{" + "m.author.name" + "} - {" + self.suggestionInProgress[index][1] + "} - {" + cat + "}\n")
+        file.close()
+        del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
+        await m.author.send("Danke für deinen Vorschlag!")
+    

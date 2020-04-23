@@ -20,7 +20,7 @@ grossesProjektObj = GrossesProjekt()
 xmlTechnologienObj = XmlTechnologien()
 faecherarray = [automatenObj, rechnernetzeObj, kleinesProjektObj, grossesProjektObj, xmlTechnologienObj]
 
-sugg = Suggestions()
+sugg = Suggestions(faecherarray)
 
 # 187
 

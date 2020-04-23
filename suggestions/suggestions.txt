@@ -1,0 +1,27 @@
+{m.author.name} - {!xDDD} - {XML-Technologien (xml)}
+{m.author.name} - {!lol} - {kl}
+{m.author.name} - {!xDDDas} - {kp}
+{m.author.name} - {!sfsdf} - {Automaten und Formale Sprachen (afs)}
+{m.author.name} - {!spast} - {YES}
+{m.author.name} - {!behindertesDrecksfach} - {yes}
+{m.author.name} - {!sfsd} - {y}
+{m.author.name} - {!sdfsdf} - {y}
+{m.author.name} - {!sdffsdfsd} - {y}
+{m.author.name} - {!:D:D:D:D} - {y}
+{m.author.name} - {!test} - {Rechnernetze (rn)}
+{m.author.name} - {!xddd} - {y}
+{m.author.name} - {!Drecksfach} - {yes}
+{m.author.name} - {!Drecksfach} - {Automaten und Formale Sprachen (afs)}
+{m.author.name} - {!xDDD} - {y}
+{m.author.name} - {!:D:D:D:D:D} - {y}
+{m.author.name} - {!adsffadf} - {y}
+{m.author.name} - {!lol} - {Yes}
+{m.author.name} - {!Drecksfach} - {Automaten und Formale Sprachen (afs)}
+{m.author.name} - {!XD} - {Automaten und Formale Sprachen (afs)}
+{m.author.name} - {!XDDDDDDDDD} - {Automaten und Formale Sprachen (afs)}
+{m.author.name} - {!XDDD} - {Kleines Studienprojekt (kl)}
+{m.author.name} - {!XDDDDDDD} - {Groï¿½es Studienprojekt (gr)}
+{m.author.name} - {!XDDD} - {Automaten und Formale Sprachen (afs)}
+{m.author.name} - {!xddd} - {Groï¿½es Studienprojekt (gr)}
+{m.author.name} - {!testdoof} - {Großes Studienprojekt (gr)}
+{m.author.name} - {!Drecksfach} - {Automaten und Formale Sprachen (afs)}
