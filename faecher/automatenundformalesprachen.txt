@@ -7,3 +7,7 @@ fs
 automatenundformalesprachen
 automatenuformalesprachen
 automatenundformale
+dreck
+drecksfach
+drecksscheisse
+drecksscheiße

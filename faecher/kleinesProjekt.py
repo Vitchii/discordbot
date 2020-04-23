@@ -18,3 +18,6 @@ class KleinesProjekt(Fach):
 
     def getName(self):
         return "Kleines Studienprojekt (kl)"
+
+    def getShortName(self):
+        return "klpr"

@@ -33,3 +33,6 @@ class Rechnernetze(Fach):
 
     def getName(self):
         return "Rechnernetze (rn)"
+
+    def getShortName(self):
+        return "rn"
