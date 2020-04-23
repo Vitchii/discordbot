@@ -40,40 +40,54 @@ async def on_message(m):
 
 async def handleMessage(m): 
     msg = m.content.lower()[1:]
-    beantwortet = False
+    answered = False
     for f in faecherarray:
         if f.getSynonyms().__contains__(msg):
             await m.channel.send(f'{m.author.mention}: ' + f.getText())
             for l in f.getLinks():
                 await m.channel.send(embed = l)
-            beantwortet = True
+            answered = True
 
-    if not beantwortet:
+    if not answered:
         if msg == "help" or msg == "h" or msg == "hilfe":
             await m.channel.send("Übersicht der Commands:"
                                 + "\n!help            Zeigt dir eine Übersicht der Commands an"
                                 + "\n!*fach*            Zeigt die Links zu den Unterlagen für *fach* an"
                                 + "\n!faecher      Zeigt die eine Liste der eingetragenen Fächer an"
-                                + "\n\n Wer das liest ist doof :P")
-            beantwortet = True
+                                + "\n!git               Sendet dir den GitHub-Link"
+                                + "\n\nWer das liest ist doof :P")
+            answered = True
         
         if msg == "faecher" or msg == "f":
             text = "Bis jetzt sind folgende Fächer eingetragen:"
             for i in range(len(faecherarray)):
                 text = text + "\n" + str(i+1) + ". " + faecherarray[i].getName()
             await m.channel.send(text)
-            beantwortet = True
+            answered = True
 
         if msg == "fach":
             await m.channel.send("Sehr witzig :D:D:D:D")
-            beantwortet = True
+            answered = True
+
+        if msg == "github" or msg == "git":
+            t = 'discordbot'
+            u = 'https://github.com/nilslambertz/discordbot'
+            d = 'Github'
+            embed = discord.Embed(title=t, url=u, description=d)
+            await m.channel.send(embed = embed)
+            answered = True
 
         if msg == "hurensohn":
-            await m.channel.send("selber :|")
-            beantwortet = True
+            await m.channel.send("Du bist selbst ein Hurensohn, "+ f"{m.author.mention}")
+            answered = True
+            
+        if msg == "hoffmann":
+            await m.channel.send("https://www.youtube.com/watch?v=ffp_M7RCLTI")
+            answered = True
 
-    if not beantwortet:
-        await m.user.send
+        if msg == "doofmann":
+            await m.channel.send(":O")
+            answered = True
                 
 
 
