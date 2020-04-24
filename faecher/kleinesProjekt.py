@@ -13,6 +13,12 @@ class KleinesProjekt(Fach):
         embed = discord.Embed(title=t, url=u, description=d)
         self.links.append(embed)
 
+        t = 'Kleines-Projekt Folien & Übungen'
+        u = 'https://studip.uni-trier.de/dispatch.php/course/files/index?cid=f66a227f9c44dec1f928dc9ebe58044a'
+        d = 'StudIP'
+        embed = discord.Embed(title=t, url=u, description=d)
+        self.links.append(embed)
+
     def getText(self):
         return "Die Unterlagen zum __**kleinen Studienprojekt**__ findest du hier:"
 
