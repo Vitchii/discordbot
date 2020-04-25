@@ -151,7 +151,8 @@ async def test(c):
 try:
     file = open("apikey.txt", "r")
     key = file.readline()
-except:
+except FileNotFoundError:
+    print("File not found")
     key = ""
 
 client.run(os.environ.get('DISCORD_TOKEN', key))
