@@ -14,7 +14,7 @@ class Suggestions:
 
     def __init__(self, faecher):
         for f in faecher:
-            self.categories.append(f.getName())
+            self.categories.append([f.getName(), f.getShortName()])
         self.updateDenied()
         self.updateAccepted()
         return
@@ -98,7 +98,7 @@ class Suggestions:
         msg = m.content.lower()
         if self.waiting and self.waiting[0].__contains__(str(m.author.id)):
             if msg == 'y' or msg == 'yes' or msg == 'ye' or msg == 'j' or msg == 'ja':
-                self.addUserToAccepted(str(m.author.id))
+                await self.addUserToAccepted(m)
                 cmd = self.waiting[self.waiting[0].index(str(m.author.id))][1]
                 del self.waiting[self.waiting[0].index(str(m.author.id))]
                 self.updateAccepted()
@@ -107,7 +107,7 @@ class Suggestions:
                 return
             else:
                 if msg == 'n' or msg == 'no' or msg == 'ne' or msg == 'nein':
-                    self.addUserToDenied(str(m.author.id))
+                    await self.addUserToDenied(m)
                     del self.waiting[self.waiting[0].index(str(m.author.id))]
                     self.updateDenied()
                     print(m.author.name + " doesn't want to help with suggestions in the future")
@@ -143,30 +143,36 @@ class Suggestions:
 
         msg = "Wozu würdest du **" + cmd + "** zuordnen?"
         for i in range(len(self.categories)):
-            msg = msg + "\n" + str(i) + ".\t" + self.categories[i]
+            msg = msg + "\n" + str(i) + ".\t" + self.categories[i][0] + " (" + self.categories[i][1] + ")"
 
-        msg = msg + "\nGib die Zahl der Kategorie ein, die am besten zu dem Command passt!"
+        msg = msg + "\nGib die Zahl der Kategorie ein, die am besten zu dem Command passt! (**x** zum Abbrechen)"
 
         await m.author.send(msg)
 
     async def suggestionMade(self, m):
         index = self.suggestionInProgress[0].index(str(m.author.id))
 
-        if(m.content == "x"):
+        if(m.content.lower() == "x"):
             await m.author.send("Vorgang abgebrochen!")
             del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
             return
 
-        if not (m.content.isalpha() and self.categories and self.categories.__contains__(m.content)) and not (m.content.isdigit() and int(m.content) in range(len(self.categories))):
+        inCategories = False
+        for e in self.categories:
+            if e[1] == m.content.lower():
+                inCategories = True
+                break
+
+        if not (m.content.isalpha() and self.categories and inCategories) and not (m.content.isdigit() and int(m.content) in range(len(self.categories))):
             await m.author.send("Keine valide Eingabe, bitte gib eine Zahl zwischen 0 und " + str(len(self.categories) - 1) + " ein!"
                                 + "\nZum Abbrechen gib einfach \"x\" ein")
             return
             
-        cat = m.content
+        cat = m.content.lower()
 
 
         if cat.isdigit():
-            cat = self.categories[int(cat)]
+            cat = self.categories[int(cat)][1]
 
 
         file = open("suggestions/suggestions.txt", "a")
@@ -180,7 +186,7 @@ class Suggestions:
         l = file.readline()
         all = ""
         for line in file.readlines():
-            all = all + line + "\n"
+            all = all + line #+ "\n"
         file.close()
         file = open("suggestions/suggestions.txt", "w")
         file.write(all)

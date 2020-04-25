@@ -32,7 +32,7 @@ class Rechnernetze(Fach):
         return
 
     def getName(self):
-        return "Rechnernetze (rn)"
+        return "Rechnernetze"
 
     def getShortName(self):
         return "rn"
