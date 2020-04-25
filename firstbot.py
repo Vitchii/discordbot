@@ -147,8 +147,12 @@ async def on_ready():
 async def test(c):
     await c.send(f'{c.author.mention}: Test erfolgreich :-)')
 
-file = open("apikey.txt", "r")
-key = file.readline()
+# get api key if not run on the server
+try:
+    file = open("apikey.txt", "r")
+    key = file.readline()
+except:
+    key = ""
 
 client.run(os.environ.get('DISCORD_TOKEN', key))
 
