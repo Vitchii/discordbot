@@ -10,12 +10,15 @@ class Suggestions:
     categories = []
     suggestionInProgress = []
     reviewInProgress = []
+    faecherarray = []
+    admins = ["218071499943182336"]
     bot = discord.Client()
     client = commands.Bot(command_prefix='.')
 
     def __init__(self, faecher):
         for f in faecher:
             self.categories.append([f.getName(), f.getShortName()])
+            self.faecherarray.append(f)
         self.updateDenied()
         self.updateAccepted()
         return
@@ -121,12 +124,12 @@ class Suggestions:
         if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
             await self.suggestionMade(m)
 
-        if self.reviewInProgress and str(m.author.id) == "218071499943182336":
-            # self.reviewed(m)
+        if self.reviewInProgress and str(m.author.id) in self.admins:
+            await self.reviewed(m)
             return
 
-        if not self.reviewInProgress and str(
-                m.author.id) == "218071499943182336" and m.content == "!review" or m.content == "!r":
+        if not self.reviewInProgress and str(m.author.id) in self.admins \
+                and m.content == "!review" or m.content == "!r":
             await self.startNewReview(m)
 
     def getWaitingUsers(self):
@@ -184,6 +187,10 @@ class Suggestions:
     async def startNewReview(self, m):
         file = open("suggestions/suggestions.txt", "r")
         l = file.readline()
+        if l == "":
+            await m.author.send("Keine ausstehenden Vorschläge zum Bewerten vorhanden!")
+            return
+
         all = ""
         for line in file.readlines():
             all = all + line  # + "\n"
@@ -200,7 +207,45 @@ class Suggestions:
 
         sug = l[0:l.index("}")]
 
-        print("USER: " + user)
-        print("CMD: " + cmd)
-        print("SUG; " + sug)
+        self.reviewInProgress.append([str(m.author.id), user, cmd, sug])
+
+        await m.author.send("Vorschlag von " + user + ":"
+                            + "\n**" + cmd + "** gehört zu **" + sug + "**"
+                            + "\nIst dieser Vorschlag korrekt? Bitte **YES** oder **NO** antworten!")
+        return
+
+    async def reviewed(self, m):
+        answer = m.content.lower()
+        index = -1
+        for e in range(len(self.reviewInProgress)):
+            if self.reviewInProgress[e][0] == str(m.author.id):
+                index = e
+                break
+
+        if index == -1:
+            await m.author.send("Es ist ein Fehler aufgetreten")
+            print("User not in reviewInProgress")
+            return
+
+        if answer == "y" or answer == "ye" or answer == "yes" or answer == "j" or answer == "ja":
+            error = True
+            for f in self.faecherarray:
+                if self.reviewInProgress[index][3] == f.getShortName():
+                    f.addSynomym(self.reviewInProgress[index][2][1:])
+                    await m.author.send("**" + self.reviewInProgress[index][2] + "** wurde erfolgreich **"
+                                        + self.reviewInProgress[index][3] + "** zugeordnet!")
+                    del self.reviewInProgress[index]
+                    return
+            if error:
+                await m.author.send("Es ist ein Fehler aufgetreten!")
+                print("Couldn't find matching fach")
+                return
+
+
+        if answer == "n" or answer == "no" or answer == "nein":
+            await m.author.send("Vorschlag wurde erfolgreich abgelehnt!")
+            del self.reviewInProgress[index]
+            return
+
+        await m.author.send("Bitte mit **YES** oder **NO** antworten!")
         return

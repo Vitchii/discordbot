@@ -2,3 +2,5 @@ rn
 rechnernetze
 rechner
 netze
+netzerrechne
+sturm
