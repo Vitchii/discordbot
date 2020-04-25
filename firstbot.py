@@ -32,11 +32,6 @@ cmds.append(["!git", "Sendet dir den GitHub-Link"])
 
 sugg = Suggestions(faecherarray)
 
-# 187
-
-### test 
-
-#187
 
 @client.event
 async def on_message(m):
@@ -116,6 +111,10 @@ async def handleMessage(m):
             await sugg.addUserToDenied(m)
             answered = True
 
+        if msg == "andi":
+            await m.channel.send("Ich habe eine andere Rechtsauffassung als der EuGH")
+            answered = True
+
         if msg == "suggestion" or msg == "suggestions":
             await m.channel.send("Du kannst den Bot verbessern, indem du ihm Vorschläge zur Einordnung von Commands gibst! "
                             + "Du erhältst jedes mal eine private Nachricht, wenn er einen von dir eingegebenen Command nicht kennt und kannst diesem bestimmte "
@@ -172,5 +171,5 @@ async def on_ready():
 async def test(c):
     await c.send(f'{c.author.mention}: Test erfolgreich :-)')
 
-client.run(os.environ['DISCORD_TOKEN'])
-#client.run('NzAyMTU3MjM1MTQ0NDkxMDc4' + '.XqCEaQ.ffCEfyjITgz1FeAlkqI3BckKD2U')
+#client.run(os.environ['DISCORD_TOKEN'])
+client.run('NzAyMTU3MjM1MTQ0NDkxMDc4' + '.XqCEaQ.ffCEfyjITgz1FeAlkqI3BckKD2U')

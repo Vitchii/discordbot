@@ -8,6 +8,7 @@ class Suggestions:
     newCommand = []
     categories = []
     suggestionInProgress = []
+    reviewInProgress = []
     bot = discord.Client()
     client = commands.Bot(command_prefix='.')
 
@@ -118,6 +119,15 @@ class Suggestions:
 
         if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
             await self.suggestionMade(m)
+
+        if self.reviewInProgress and str(m.author.id) == "218071499943182336":
+            #self.reviewed(m)
+            return
+        
+        if not self.reviewInProgress and str(m.author.id) == "218071499943182336" and m.content == "!review" or m.content == "!r":
+            await self.startNewReview(m)
+        
+
                 
     def getWaitingUsers(self):
         return self.waiting[0]
@@ -165,3 +175,27 @@ class Suggestions:
         del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
         await m.author.send("Danke für deinen Vorschlag!")
     
+    async def startNewReview(self, m):
+        file = open("suggestions/suggestions.txt", "r")
+        l = file.readline()
+        all = ""
+        for line in file.readlines():
+            all = all + line + "\n"
+        file.close()
+        file = open("suggestions/suggestions.txt", "w")
+        file.write(all)
+        file.close()
+
+        user = l[1:l.index("}")]
+        l = l[l.index("}") + 5:]
+
+        cmd = l[0:l.index("}")]
+        l = l[l.index("}") + 5:]
+
+        sug = l[0:l.index("}")]
+
+        print("USER: " + user)
+        print("CMD: " + cmd)
+        print("SUG; " + sug)
+        return
+
