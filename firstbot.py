@@ -75,7 +75,7 @@ async def handleMessage(m):
         if msg == "faecher" or msg == "f":
             text = "Bis jetzt sind folgende Fächer eingetragen:"
             for i in range(len(faecherarray)):
-                text = text + "\n" + str(i+1) + ". " + faecherarray[i].getName()
+                text = text + "\n" + str(i+1) + ". " + faecherarray[i].getName() + " (" + faecherarray[i].getShortName() + ")"
             await m.channel.send(text)
             answered = True
 
@@ -139,26 +139,6 @@ async def handleMessage(m):
         
         return
 
-
-        if msg == "github" or msg == "git":
-            t = 'discordbot'
-            u = 'https://github.com/nilslambertz/discordbot'
-            d = 'Github'
-            embed = discord.Embed(title=t, url=u, description=d)
-            await m.channel.send(embed = embed)
-            beantwortet = True
-
-        if msg == "hurensohn":
-            await m.channel.send("Du bist selbst ein Hurensohn, "+ f"{m.author.mention}")
-            beantwortet = True
-            
-        if msg == "hoffmann":
-            await m.channel.send("https://www.youtube.com/watch?v=ffp_M7RCLTI")
-            beantwortet = True
-
-        if msg == "doofmann":
-            await m.channel.send(":O")
-            beantwortet = True
                 
 
 

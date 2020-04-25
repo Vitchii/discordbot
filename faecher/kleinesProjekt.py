@@ -23,7 +23,7 @@ class KleinesProjekt(Fach):
         return "Die Unterlagen zum __**kleinen Studienprojekt**__ findest du hier:"
 
     def getName(self):
-        return "Kleines Studienprojekt (kl)"
+        return "Kleines Studienprojekt"
 
     def getShortName(self):
         return "klpr"
