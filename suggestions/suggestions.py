@@ -66,7 +66,7 @@ class Suggestions:
     def removeUser(self, id):
         self.updateAccepted()
         self.updateDenied()
-        if self.accepted.__contains__(id):
+        if id in self.accepted:
             with open("suggestions/accepted.txt", "r") as f:
                 lines = f.readlines()
             with open("suggestions/accepted.txt", "w") as f:
@@ -74,7 +74,7 @@ class Suggestions:
                     if line.strip("\n") != id:
                         f.write(line)
 
-        if self.denied.__contains__(id):
+        if id in self.denied:
             with open("suggestions/denied.txt", "r") as f:
                 lines = f.readlines()
             with open("suggestions/denied.txt", "w") as f:
@@ -92,7 +92,7 @@ class Suggestions:
                             + "Kategorien zuordnen. Diese Einordnung wird dann überprüft und ggf. freigeschaltet! "
                             + "\n\nWillst du mitmachen? Schreibe einfach **YES** oder **NO**")
 
-        if self.waiting and self.waiting[0].__contains__(str(m.author.id)):
+        if self.waiting and str(m.author.id) in self.waiting[0]:
             return
 
         self.waiting.append([str(m.author.id), m.content])
@@ -100,7 +100,7 @@ class Suggestions:
 
     async def gotReply(self, m):
         msg = m.content.lower()
-        if self.waiting and self.waiting[0].__contains__(str(m.author.id)):
+        if self.waiting and str(m.author.id) in self.waiting[0]:
             if msg == 'y' or msg == 'yes' or msg == 'ye' or msg == 'j' or msg == 'ja':
                 await self.addUserToAccepted(m)
                 cmd = self.waiting[self.waiting[0].index(str(m.author.id))][1]
@@ -121,7 +121,7 @@ class Suggestions:
                     await m.channel.send("Bitte mit **YES** oder **NO** antworten!")
                     return
 
-        if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
+        if self.suggestionInProgress and str(m.author.id) in self.suggestionInProgress[0]:
             await self.suggestionMade(m)
 
         if self.reviewInProgress and str(m.author.id) in self.admins:
@@ -139,7 +139,7 @@ class Suggestions:
         if cmd == "":
             cmd = m.content
 
-        if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
+        if self.suggestionInProgress and str(m.author.id) in self.suggestionInProgress[0]:
             del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
 
         self.suggestionInProgress.append([str(m.author.id), cmd])
@@ -240,7 +240,6 @@ class Suggestions:
                 await m.author.send("Es ist ein Fehler aufgetreten!")
                 print("Couldn't find matching fach")
                 return
-
 
         if answer == "n" or answer == "no" or answer == "nein":
             await m.author.send("Vorschlag wurde erfolgreich abgelehnt!")

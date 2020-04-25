@@ -30,6 +30,9 @@ cmds.append(["!decline", "Lehne private Nachrichten durch den Bot ab"])
 
 cmds.append(["!git", "Sendet dir den GitHub-Link"])
 
+
+
+
 sugg = Suggestions(faecherarray)
 
 
@@ -53,7 +56,7 @@ async def handleMessage(m):
     msg = m.content.lower()[1:]
     answered = False
     for f in faecherarray:
-        if f.getSynonyms().__contains__(msg):
+        if msg in f.getSynonyms():
             await m.channel.send(f'{m.author.mention}: ' + f.getText())
             for l in f.getLinks():
                 await m.channel.send(embed=l)
@@ -123,15 +126,15 @@ async def handleMessage(m):
 
     if not answered:
         await m.channel.send("Diesen Command kenne ich nicht :(")
-        if sugg.getDenied().__contains__(str(m.author.id)):
+        if str(m.author.id) in sugg.getDenied():
             print(m.author.name + " doesn't want to give suggestions")
             return
 
-        if not sugg.getAccepted().__contains__(str(m.author.id)):
+        if not str(m.author.id) in sugg.getAccepted():
             print("Asking " + m.author.name + " for permission")
             await sugg.askForPermission(m)
 
-        if sugg.getAccepted().__contains__(str(m.author.id)):
+        if str(m.author.id) in sugg.getAccepted():
             print("Asking " + m.author.name + " for suggestions")
             await sugg.suggestNewCommand(m)
 
