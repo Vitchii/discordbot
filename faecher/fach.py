@@ -37,3 +37,8 @@ class Fach:
 
     def getName(self):
         return "n/a"
+
+    def addSynomym(self, n):
+        file = open("faecher/" + self.filename + ".txt", "a")
+        file.write("\n" + n)
+        file.close()
