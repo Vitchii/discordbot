@@ -1,4 +1,4 @@
-from faecher.automatenundformalesprachen import Automatenundformalesprachen 
+from faecher.automatenundformalesprachen import Automatenundformalesprachen
 from faecher.rechnernetze import Rechnernetze
 from faecher.kleinesProjekt import KleinesProjekt
 from faecher.grossesProjekt import GrossesProjekt
@@ -40,7 +40,6 @@ async def on_message(m):
         await sugg.gotReply(m)
         return
 
-
     if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal"):
         return
 
@@ -48,18 +47,16 @@ async def on_message(m):
         await handleMessage(m)
 
     await client.process_commands(m)
-    
 
 
-
-async def handleMessage(m): 
+async def handleMessage(m):
     msg = m.content.lower()[1:]
     answered = False
     for f in faecherarray:
         if f.getSynonyms().__contains__(msg):
             await m.channel.send(f'{m.author.mention}: ' + f.getText())
             for l in f.getLinks():
-                await m.channel.send(embed = l)
+                await m.channel.send(embed=l)
             answered = True
 
     if not answered:
@@ -71,11 +68,12 @@ async def handleMessage(m):
             text = text + "\n\nWer das liest ist doof :P"
             await m.channel.send(text)
             answered = True
-        
+
         if msg == "faecher" or msg == "f":
             text = "Bis jetzt sind folgende Fächer eingetragen:"
             for i in range(len(faecherarray)):
-                text = text + "\n" + str(i+1) + ". " + faecherarray[i].getName() + " (" + faecherarray[i].getShortName() + ")"
+                text = text + "\n" + str(i + 1) + ". " + faecherarray[i].getName() + " (" + faecherarray[
+                    i].getShortName() + ")"
             await m.channel.send(text)
             answered = True
 
@@ -88,13 +86,13 @@ async def handleMessage(m):
             u = 'https://github.com/nilslambertz/discordbot'
             d = 'Github'
             embed = discord.Embed(title=t, url=u, description=d)
-            await m.channel.send(embed = embed)
+            await m.channel.send(embed=embed)
             answered = True
 
         if msg == "hurensohn":
-            await m.channel.send("Du bist selbst ein Hurensohn, "+ f"{m.author.mention}")
+            await m.channel.send("Du bist selbst ein Hurensohn, " + f"{m.author.mention}")
             answered = True
-            
+
         if msg == "hoffmann":
             await m.channel.send("https://www.youtube.com/watch?v=ffp_M7RCLTI")
             answered = True
@@ -116,19 +114,19 @@ async def handleMessage(m):
             answered = True
 
         if msg == "suggestion" or msg == "suggestions":
-            await m.channel.send("Du kannst den Bot verbessern, indem du ihm Vorschläge zur Einordnung von Commands gibst! "
-                            + "Du erhältst jedes mal eine private Nachricht, wenn er einen von dir eingegebenen Command nicht kennt und kannst diesem bestimmte "
-                            + "Kategorien zuordnen. Diese Einordnung wird dann überprüft und ggf. freigeschaltet! "
-                            + "Du kannst mit **!accept** zustimmen und mit **!decline** ablehnen")
+            await m.channel.send(
+                "Du kannst den Bot verbessern, indem du ihm Vorschläge zur Einordnung von Commands gibst! "
+                + "Du erhältst jedes mal eine private Nachricht, wenn er einen von dir eingegebenen Command nicht kennt und kannst diesem bestimmte "
+                + "Kategorien zuordnen. Diese Einordnung wird dann überprüft und ggf. freigeschaltet! "
+                + "Du kannst mit **!accept** zustimmen und mit **!decline** ablehnen")
             answered = True
 
-                
     if not answered:
         await m.channel.send("Diesen Command kenne ich nicht :(")
         if sugg.getDenied().__contains__(str(m.author.id)):
             print(m.author.name + " doesn't want to give suggestions")
             return
-        
+
         if not sugg.getAccepted().__contains__(str(m.author.id)):
             print("Asking " + m.author.name + " for permission")
             await sugg.askForPermission(m)
@@ -136,20 +134,21 @@ async def handleMessage(m):
         if sugg.getAccepted().__contains__(str(m.author.id)):
             print("Asking " + m.author.name + " for suggestions")
             await sugg.suggestNewCommand(m)
-        
+
         return
-
-                
-
 
 
 @client.event
 async def on_ready():
     print('Bot is ready!')
 
+
 @client.command()
 async def test(c):
     await c.send(f'{c.author.mention}: Test erfolgreich :-)')
 
-#client.run(os.environ['DISCORD_TOKEN'])
-client.run('NzAyMTU3MjM1MTQ0NDkxMDc4' + '.XqCEaQ.ffCEfyjITgz1FeAlkqI3BckKD2U')
+file = open("apikey.txt", "r")
+key = file.readline()
+
+client.run(os.environ.get('DISCORD_TOKEN', key))
+

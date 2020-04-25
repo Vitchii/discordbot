@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+
 class Suggestions:
     denied = []
     accepted = []
@@ -35,7 +36,7 @@ class Suggestions:
         for line in file:
             self.accepted.append(line.strip().lower())
         file.close()
-    
+
     def getAccepted(self):
         return self.accepted
 
@@ -50,7 +51,7 @@ class Suggestions:
         return
 
     async def addUserToDenied(self, m):
-        self.removeUser(str(m.author.id))   
+        self.removeUser(str(m.author.id))
         file = open("suggestions/denied.txt", "a")
         file.write(str(m.author.id) + "\n")
         file.close()
@@ -69,7 +70,7 @@ class Suggestions:
                 for line in lines:
                     if line.strip("\n") != id:
                         f.write(line)
- 
+
         if self.denied.__contains__(id):
             with open("suggestions/denied.txt", "r") as f:
                 lines = f.readlines()
@@ -112,7 +113,7 @@ class Suggestions:
                     self.updateDenied()
                     print(m.author.name + " doesn't want to help with suggestions in the future")
                     return
-                else: 
+                else:
                     print(m.author.name + " didn't give a valid answer")
                     await m.channel.send("Bitte mit **YES** oder **NO** antworten!")
                     return
@@ -121,24 +122,23 @@ class Suggestions:
             await self.suggestionMade(m)
 
         if self.reviewInProgress and str(m.author.id) == "218071499943182336":
-            #self.reviewed(m)
+            # self.reviewed(m)
             return
-        
-        if not self.reviewInProgress and str(m.author.id) == "218071499943182336" and m.content == "!review" or m.content == "!r":
-            await self.startNewReview(m)
-        
 
-                
+        if not self.reviewInProgress and str(
+                m.author.id) == "218071499943182336" and m.content == "!review" or m.content == "!r":
+            await self.startNewReview(m)
+
     def getWaitingUsers(self):
         return self.waiting[0]
 
-    async def suggestNewCommand(self, m, cmd = ""):
+    async def suggestNewCommand(self, m, cmd=""):
         if cmd == "":
             cmd = m.content
 
         if self.suggestionInProgress and self.suggestionInProgress[0].__contains__(str(m.author.id)):
             del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
-        
+
         self.suggestionInProgress.append([str(m.author.id), cmd])
 
         msg = "Wozu würdest du **" + cmd + "** zuordnen?"
@@ -152,7 +152,7 @@ class Suggestions:
     async def suggestionMade(self, m):
         index = self.suggestionInProgress[0].index(str(m.author.id))
 
-        if(m.content.lower() == "x"):
+        if (m.content.lower() == "x"):
             await m.author.send("Vorgang abgebrochen!")
             del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
             return
@@ -163,30 +163,30 @@ class Suggestions:
                 inCategories = True
                 break
 
-        if not (m.content.isalpha() and self.categories and inCategories) and not (m.content.isdigit() and int(m.content) in range(len(self.categories))):
-            await m.author.send("Keine valide Eingabe, bitte gib eine Zahl zwischen 0 und " + str(len(self.categories) - 1) + " ein!"
-                                + "\nZum Abbrechen gib einfach \"x\" ein")
+        if not (m.content.isalpha() and self.categories and inCategories) and not (
+                m.content.isdigit() and int(m.content) in range(len(self.categories))):
+            await m.author.send(
+                "Keine valide Eingabe, bitte gib eine Zahl zwischen 0 und " + str(len(self.categories) - 1) + " ein!"
+                + "\nZum Abbrechen gib einfach \"x\" ein")
             return
-            
-        cat = m.content.lower()
 
+        cat = m.content.lower()
 
         if cat.isdigit():
             cat = self.categories[int(cat)][1]
-
 
         file = open("suggestions/suggestions.txt", "a")
         file.write("{" + m.author.name + "} - {" + self.suggestionInProgress[index][1] + "} - {" + cat + "}\n")
         file.close()
         del self.suggestionInProgress[self.suggestionInProgress[0].index(str(m.author.id))]
         await m.author.send("Danke für deinen Vorschlag!")
-    
+
     async def startNewReview(self, m):
         file = open("suggestions/suggestions.txt", "r")
         l = file.readline()
         all = ""
         for line in file.readlines():
-            all = all + line #+ "\n"
+            all = all + line  # + "\n"
         file.close()
         file = open("suggestions/suggestions.txt", "w")
         file.write(all)
@@ -204,4 +204,3 @@ class Suggestions:
         print("CMD: " + cmd)
         print("SUG; " + sug)
         return
-
