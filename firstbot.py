@@ -30,6 +30,13 @@ cmds.append(["!decline", "Lehne private Nachrichten durch den Bot ab"])
 
 cmds.append(["!git", "Sendet dir den GitHub-Link"])
 
+cmdArray = []
+cmdArray.append([["hurensohn"], "Du bist selbst ein Hurensohn"])
+cmdArray.append([["hoffmann"], "https://www.youtube.com/watch?v=ffp_M7RCLTI"])
+cmdArray.append([["doofmann"], ":o"])
+cmdArray.append([["andi"], "Ich habe eine andere Rechtsauffassung als der EuGH"])
+cmdArray.append([["fach"], "Sehr witzig :D:D:D:D"])
+
 sugg = Suggestions(faecherarray)
 
 
@@ -77,10 +84,6 @@ async def handleMessage(m):
             await m.channel.send(text)
             answered = True
 
-        if msg == "fach":
-            await m.channel.send("Sehr witzig :D:D:D:D")
-            answered = True
-
         if msg == "github" or msg == "git":
             t = 'discordbot'
             u = 'https://github.com/nilslambertz/discordbot'
@@ -89,17 +92,10 @@ async def handleMessage(m):
             await m.channel.send(embed=embed)
             answered = True
 
-        if msg == "hurensohn":
-            await m.channel.send("Du bist selbst ein Hurensohn, " + f"{m.author.mention}")
-            answered = True
-
-        if msg == "hoffmann":
-            await m.channel.send("https://www.youtube.com/watch?v=ffp_M7RCLTI")
-            answered = True
-
-        if msg == "doofmann":
-            await m.channel.send(":O")
-            answered = True
+        for c in cmdArray:
+            if msg in c[0]:
+                await m.channel.send(c[1])
+                answered = True
 
         if msg == "a" or msg == "accept":
             await sugg.addUserToAccepted(m)
@@ -107,10 +103,6 @@ async def handleMessage(m):
 
         if msg == "d" or msg == "decline":
             await sugg.addUserToDenied(m)
-            answered = True
-
-        if msg == "andi":
-            await m.channel.send("Ich habe eine andere Rechtsauffassung als der EuGH")
             answered = True
 
         if msg == "suggestion" or msg == "suggestions":
