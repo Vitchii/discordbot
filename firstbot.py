@@ -91,6 +91,10 @@ async def handleMessage(m):
             embed = discord.Embed(title=t, url=u, description=d)
             await m.channel.send(embed=embed)
             answered = True
+            
+        if msg == "ping":
+            await m.channel.send("pong")
+            answered = True
 
         for c in cmdArray:
             if msg in c[0]:
