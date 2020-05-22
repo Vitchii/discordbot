@@ -95,6 +95,14 @@ async def handleMessage(m):
         if msg == "ping":
             await m.channel.send("pong")
             answered = True
+            
+        if msg == "pong":
+            await m.channel.send("Steck dir dein Pong sonst wohin!")
+            answered = True
+            
+        if msg == "mega-ping":
+            await m.channel.send("**P O N G**")
+            answered = True
 
         for c in cmdArray:
             if msg in c[0]:
