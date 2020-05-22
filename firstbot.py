@@ -100,7 +100,7 @@ async def handleMessage(m):
             await m.channel.send("Steck dir dein Pong sonst wohin!")
             answered = True
             
-        if msg == "mega-ping":
+        if msg == "megaping":
             await m.channel.send("**P O N G**")
             answered = True
 
