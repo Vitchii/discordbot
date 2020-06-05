@@ -39,7 +39,6 @@ cmdArray.append([["fach"], "Sehr witzig :D:D:D:D"])
 
 sugg = Suggestions(faecherarray)
 
-
 @client.event
 async def on_message(m):
     if isinstance(m.channel, discord.DMChannel) and not m.author.bot:
