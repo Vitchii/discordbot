@@ -46,7 +46,8 @@ async def on_message(m):
         await sugg.gotReply(m)
         return
 
-    if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal" and m.channel.name != "info-general"):
+    if m.author.bot or (m.channel.name != "info-bot" and m.channel.name != "botkanal" and 
+                        m.channel.name != "bot-playground" and m.channel.name != "terminal" and m.channel.name != "info-general"):
         return
 
     if m.content.startswith('!') and m.content[1:].isalpha():
