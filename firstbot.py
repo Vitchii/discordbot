@@ -1,3 +1,7 @@
+import discord
+from discord.ext import commands
+import os
+
 from faecher.automatenundformalesprachen import Automatenundformalesprachen
 from faecher.rechnernetze import Rechnernetze
 from faecher.kleinesProjekt import KleinesProjekt
@@ -5,10 +9,6 @@ from faecher.grossesProjekt import GrossesProjekt
 from faecher.xmltechnologien import XmlTechnologien
 
 from suggestions.suggestions import Suggestions
-
-import discord
-from discord.ext import commands
-import os
 
 client = commands.Bot(command_prefix='.')
 bot = discord.Client()
@@ -97,6 +97,14 @@ async def handleMessage(m):
             
         if msg == "pong":
             await m.channel.send("Steck dir dein Pong sonst wohin!")
+            answered = True
+
+        if msg == "verlauf" or msg == "studienverlauf" or msg == "studienverlaufsplan" or msg == "verlaufsplan":
+            t = 'Studienverlaufsplan'
+            u = 'https://www.uni-trier.de/fileadmin/fb4/INF/BA_MA/Uni_Trier_FB_IV_BA_Informatik_Studienverlaufsplaene.pdf'
+            d = 'Uni-Trier'
+            embed = discord.Embed(title=t, url=u, description=d)
+            await m.channel.send(embed=embed)
             answered = True
             
         if msg == "megaping":
