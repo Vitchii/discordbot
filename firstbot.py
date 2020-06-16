@@ -96,6 +96,24 @@ async def handleMessage(m):
             await m.channel.send("pong")
             answered = True
             
+        if msg == "megaping":
+            await m.channel.send("**P O N G**")
+            answered = True
+            
+        if msg == "gigaping":
+            box = ":white_large_square:"
+            fourBox = (box + box + box + box)
+            space = "      "
+            twoSpace = (space + space)
+            l1 = (fourBox + space + fourBox + space + box + space + space + box + space + fourBox)
+            l2 = (box + twoSpace + box + space + box + twoSpace + box + space + box + box + space + box + space + box)
+            l3 = (box + twoSpace + box + space + box + twoSpace + box + space + box + "  " + box + "    " + box + space + box)
+            l4 = (fourBox + space + box + twoSpace + box + space + box + "    " + box + "  " + box + space + box + space + box + box)
+            l5 = (box + twoSpace + twoSpace + box + twoSpace + box + space + box + space + box + box + space + box + twoSpace + box)
+            l6 = (box + twoSpace + twoSpace + fourBox + space + box + twoSpace + box + space + fourBox)
+            await m.channel.send(l1 + "\n" + l2 + "\n" + l3 + "\n" + l4 + "\n" + l5 + "\n" + l6)
+            answered = True
+            
         if msg == "pong":
             await m.channel.send("Steck dir dein Pong sonst wohin!")
             answered = True
@@ -106,10 +124,6 @@ async def handleMessage(m):
             d = 'Uni-Trier'
             embed = discord.Embed(title=t, url=u, description=d)
             await m.channel.send(embed=embed)
-            answered = True
-            
-        if msg == "megaping":
-            await m.channel.send("**P O N G**")
             answered = True
 
         for c in cmdArray:
