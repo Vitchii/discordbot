@@ -111,7 +111,7 @@ async def handleMessage(m):
             l4 = (fourBox + space + box + twoSpace + box + space + box + "    " + box + "  " + box + space + box + space + box + box)
             l5 = (box + twoSpace + twoSpace + box + twoSpace + box + space + box + space + box + box + space + box + twoSpace + box)
             l6 = (box + twoSpace + twoSpace + fourBox + space + box + twoSpace + box + space + fourBox)
-            await m.channel.send(l1 + "\n" + l2 + "\n" + l3 + "\n" + l4 + "\n" + l5 + "\n" + l6)
+            await m.channel.send("\n" + l1 + "\n" + l2 + "\n" + l3 + "\n" + l4 + "\n" + l5 + "\n" + l6)
             answered = True
             
         if msg == "pong":
